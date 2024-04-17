@@ -1,9 +1,3 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=4")
-vim.cmd("set softtabstop=4")
-vim.cmd("set shiftwidth=4")
-vim.g.mapleader = " " 
-
 local data_path = vim.fn.stdpath("data")
 if data_path then
     local lazypath = data_path .. "/lazy/lazy.nvim"
@@ -22,28 +16,6 @@ else
     print("Error: Neovim data path is nil")
 end
 
-local plugins = {
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-    {
-        'nvim-telescope/telescope.nvim', tag = '0.1.6',
-        dependencies = { 'nvim-lua/plenary.nvim' }
-    },
-    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"} 
-}
-local opts = {}
-
-require("lazy").setup(plugins, opts)
-local builtin = require("telescope.builtin")
-vim.keymap.set('n','<C-p>',builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-
-local config = require("nvim-treesitter.configs")
-config.setup({
-    ensure_installed = {"lua","javascript"},
-    highlight = { enable = true},
-    indent = {enable = true}
-})
-
-require("catppuccin").setup()
-vim.cmd.colorscheme "catppuccin"
+require("vim-options")
+require("lazy").setup("plugins")
 
