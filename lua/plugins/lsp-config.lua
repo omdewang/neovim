@@ -3,33 +3,54 @@ return {
         "williamboman/mason.nvim",
         config = function()
             require("mason").setup()
-        end
+        end,
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        config = function()
-            require("mason-lspconfig").setup({
-                ensure_installed = {"lua_ls","tsserver","clangd","unocss","html","jdtls","kotlin_language_server","remark_ls","pyright","sqlls"}
-            })
-        end
+        lazy = false,
+        opts = {
+            auto_install = true,
+        },
     },
     {
         "neovim/nvim-lspconfig",
         config = function()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
             local lspconfig = require("lspconfig")
-            lspconfig.lua_ls.setup({})
-            lspconfig.tsserver.setup({})
-            lspconfig.clangd.setup({})
-            lspconfig.unocss.setup({})
-            lspconfig.html.setup({})
-            lspconfig.jdtls.setup({})
-            lspconfig.kotlin_language_server.setup({})
-            lspconfig.remark_ls.setup({})
-            lspconfig.pyright.setup({})
-            lspconfig.sqlls.setup({})
-            vim.keymap.set('n','k',vim.lsp.buf.hover,{})
-            vim.keymap.set('n','gd',vim.lsp.buf.definition,{})
-            vim.keymap.set({'n','v'},'<leader>ca',vim.lsp.buf.code_action,{})
-        end
-    }
+            lspconfig.lua_ls.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.tsserver.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.clangd.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.unocss.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.html.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.jdtls.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.kotlin_language_server.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.remark_ls.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.pyright.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.sqlls.setup({
+                capabilities = capabilities,
+            })
+            vim.keymap.set("n", "k", vim.lsp.buf.hover, {})
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+            vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+        end,
+    },
 }
